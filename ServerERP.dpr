@@ -8,7 +8,6 @@ uses
   Web.WebReq,
   IdHTTPWebBrokerBridge,
   ServerMethodsUnit1 in 'src\server\mvc\view\entidade\ServerMethodsUnit1.pas' {ServerMethods1: TDSServerModule},
-  WebModuleUnit1 in 'src\server\mvc\model\conexao\WebModuleUnit1.pas' {WebModule1: TWebModule},
   ufrmServerERP in 'src\server\mvc\view\ufrmServerERP.pas' {frmServerERP},
   Model.Conexao.Configuracao.Interfaces in 'src\server\mvc\model\conexao\interfaces\Model.Conexao.Configuracao.Interfaces.pas',
   Model.Conexao.Interfaces in 'src\server\mvc\model\conexao\interfaces\Model.Conexao.Interfaces.pas',
@@ -32,7 +31,8 @@ uses
   Controller.Factory.Entidade.DAO.Interfaces in 'src\server\mvc\controller\controller\Controller.Factory.Entidade.DAO.Interfaces.pas',
   Controller.Impl.Factory.Entidade.DAO in 'src\server\mvc\controller\impl\Controller.Impl.Factory.Entidade.DAO.pas',
   Model.Impl.Query.Firedac in 'src\server\mvc\model\conexao\impl\Model.Impl.Query.Firedac.pas',
-  Model.Impl.Factory.Query in 'src\server\mvc\model\conexao\impl\Factory\Model.Impl.Factory.Query.pas';
+  Model.Impl.Factory.Query in 'src\server\mvc\model\conexao\impl\Factory\Model.Impl.Factory.Query.pas',
+  WebModuleUnit1 in 'src\server\mvc\WebModuleUnit1.pas' {WebModule1: TWebModule};
 
 {$R *.res}
 

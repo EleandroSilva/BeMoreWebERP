@@ -108,11 +108,6 @@ $(PostBuildEvent)]]></PostBuildEvent>
             <FormType>dfm</FormType>
             <DesignClass>TDSServerModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="src\server\mvc\model\conexao\WebModuleUnit1.pas">
-            <Form>WebModule1</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TWebModule</DesignClass>
-        </DCCReference>
         <DCCReference Include="src\server\mvc\view\ufrmServerERP.pas">
             <Form>frmServerERP</Form>
             <FormType>dfm</FormType>
@@ -140,6 +135,11 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <DCCReference Include="src\server\mvc\controller\impl\Controller.Impl.Factory.Entidade.DAO.pas"/>
         <DCCReference Include="src\server\mvc\model\conexao\impl\Model.Impl.Query.Firedac.pas"/>
         <DCCReference Include="src\server\mvc\model\conexao\impl\Factory\Model.Impl.Factory.Query.pas"/>
+        <DCCReference Include="src\server\mvc\WebModuleUnit1.pas">
+            <Form>WebModule1</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TWebModule</DesignClass>
+        </DCCReference>
         <None Include="js\base64.js"/>
         <None Include="js\serverfunctionexecutor.js"/>
         <None Include="js\json2.js"/>
@@ -189,10 +189,10 @@ $(PostBuildEvent)]]></PostBuildEvent>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="images\collapse.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="js\base64.js" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win64">
-                        <RemoteDir>.\images\</RemoteDir>
-                        <RemoteName>collapse.png</RemoteName>
+                        <RemoteDir>.\js\</RemoteDir>
+                        <RemoteName>base64.js</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -647,10 +647,10 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="js\base64.js" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="images\collapse.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win64">
-                        <RemoteDir>.\js\</RemoteDir>
-                        <RemoteName>base64.js</RemoteName>
+                        <RemoteDir>.\images\</RemoteDir>
+                        <RemoteName>collapse.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
