@@ -1,0 +1,32 @@
+unit Model.Conexao.Configuracao.Interfaces;
+
+interface
+
+type
+  iConfiguracao = interface
+    ['{C602C6AB-F0A2-4546-9B03-6FC774DDDB22}']
+    function DriverID(Value : String)   : iConfiguracao; overload;
+    function DriverID                   : String;               overload;
+    function Database(Value : String)   : iConfiguracao; overload;
+    function Database                   : String;               overload;
+    function UserName(Value : String)   : iConfiguracao; overload;
+    function UserName                   : String;               overload;
+    function Password(Value : String)   : iConfiguracao; overload;
+    function Password                   : String;               overload;
+    function Port    (Value : String)   : iConfiguracao; overload;
+    function Port                       : String;               overload;
+    function ServerHost(Value : String) : iConfiguracao; overload;
+    function ServerHost                 : String;               overload;
+    function Schema  (Value : String)   : iConfiguracao; overload;
+    function Schema                     : String;               overload;
+    function Locking (Value : String)   : iConfiguracao; overload;
+    function Locking                    : String;               overload;
+    function LibraryName(Value: String) : iConfiguracao; overload;
+    function LibraryName                : String;               overload;
+    function VendorHome(Value: String)  : iConfiguracao; overload;
+    function VendorHome                 : String;               overload;
+end;
+
+implementation
+
+end.

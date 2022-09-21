@@ -1,0 +1,35 @@
+unit Model.Impl.Entidade.Pessoa;
+
+interface
+
+type
+  TEntidadePessoa = class(TInterfacedObject, iInterface)
+    private
+      FVariavel : iInterface;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iInterface;
+  end;
+
+implementation
+
+{ TClassePadrao }
+
+constructor TEntidadePessoa.Create;
+begin
+  //
+end;
+
+destructor TEntidadePessoa.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TEntidadePessoa.New: iInterface;
+begin
+  Result := Self.Create;
+end;
+
+end.

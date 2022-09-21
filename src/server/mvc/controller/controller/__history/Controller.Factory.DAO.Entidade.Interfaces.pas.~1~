@@ -1,0 +1,17 @@
+unit Controller.DAO.Entidade.Factory.Interfaces;
+
+interface
+
+uses
+  Model.DAO.Entidade.Factory.Interfaces;
+
+
+type
+  iControllerDAOEntidadeFactory = interface
+    ['{98F9CD6A-7AEB-4C68-A3DC-FBFD9D0D71BF}']
+    function EntidadeDAOFactory : iDAOFactory;
+  end;
+
+implementation
+
+end.

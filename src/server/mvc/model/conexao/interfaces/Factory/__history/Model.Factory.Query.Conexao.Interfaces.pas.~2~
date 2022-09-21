@@ -1,0 +1,17 @@
+unit Model.Impl.Factory.Query.Conexao.Interfaces;
+
+interface
+
+uses
+  Model.Query.Firedac.Interfaces,
+  Model.Conexao.Interfaces;
+
+type
+  iFactoryQuery = interface
+    ['{5610756B-E786-47F8-9CBD-87D9A6D6B99F}']
+    function Query(Connection : iConexao) : iQuery;
+  end;
+
+implementation
+
+end.

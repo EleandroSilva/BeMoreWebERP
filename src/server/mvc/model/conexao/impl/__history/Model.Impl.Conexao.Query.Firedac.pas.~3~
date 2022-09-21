@@ -1,0 +1,35 @@
+unit Model.Impl.Conexao.Query.Firedac;
+
+interface
+
+type
+  TQueryFiredac = class(TInterfacedObject, iInterface)
+    private
+      FVariavel : iInterface;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iInterface;
+  end;
+
+implementation
+
+{ TClassePadrao }
+
+constructor TQueryFiredac.Create;
+begin
+  //
+end;
+
+destructor TQueryFiredac.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TQueryFiredac.New: iInterface;
+begin
+  Result := Self.Create;
+end;
+
+end.

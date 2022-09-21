@@ -1,0 +1,47 @@
+﻿unit Model.Entidade.Impl.Pessoa;
+
+interface
+
+uses
+  Model.Entidade.Interfaces,
+
+  Model.Query.Firedac.Interfaces;
+
+type
+  TPessoa = class(TInterfacedObject, iEntidade)
+    private
+      FQuery : iQueryFiredac;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iEntidade;
+
+      function Entidade : iEntidade;
+  end;
+
+implementation
+
+{ TClassePadrao }
+
+constructor TPessoa.Create;
+begin
+  //
+end;
+
+destructor TPessoa.Destroy;
+begin
+  //
+  inherited;
+end;
+
+function TPessoa.Entidade: iEntidade;
+begin
+
+end;
+
+class function TPessoa.New: iEntidade;
+begin
+  Result := Self.Create;
+end;
+
+end.

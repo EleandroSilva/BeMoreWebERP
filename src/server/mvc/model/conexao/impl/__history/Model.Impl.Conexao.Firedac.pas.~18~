@@ -1,0 +1,126 @@
+unit Model.Impl.Conexao.Firedac;
+
+interface
+
+uses
+  System.SysUtils,
+  System.Classes,
+  System.Types,
+
+  FireDAC.Stan.Intf,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Error,
+  FireDAC.UI.Intf,
+  FireDAC.Phys.Intf,
+  FireDAC.Stan.Def,
+  FireDAC.Stan.Pool,
+  FireDAC.Stan.Async,
+  FireDAC.Phys,
+  FireDAC.Phys.MySQL,
+  FireDAC.Phys.MySQLDef,
+  FireDAC.VCLUI.Wait,
+  FireDAC.Comp.Client,
+  FireDAC.Stan.Param,
+  FireDAC.DatS,
+  FireDAC.DApt.Intf,
+  FireDAC.DApt,
+  FireDAC.Comp.DataSet,
+
+  Data.DB,
+
+  Model.Conexao.Interfaces,
+  Model.Conexao.Configuracao.Interfaces;
+
+type
+  TConexaoFiredac = class(TInterfacedObject, iConexao)
+    private
+      FConexao             : TFDConnection;
+      FDriverMySQL         : TFDPhysMySQLDriverLink;
+      FConfiguracaoConexao : iConfiguracaoConexao;
+
+      function VendorLib : String;
+    public
+      constructor Create(ConfiguracaoConexao : iConfiguracaoConexao);
+      destructor Destroy; override;
+      class function New(ConfiguracaoConexao : iConfiguracaoConexao): iConexao;
+
+      function Connection : TCustomConnection;
+  end;
+
+implementation
+
+{ TClassePadrao }
+
+constructor TConexaoFiredac.Create(ConfiguracaoConexao : iConfiguracaoConexao);
+begin
+  FConexao             := TFDConnection.Create(nil);
+  FDriverMySQL         := TFDPhysMySQLDriverLink.Create(nil);
+  FConfiguracaoConexao := ConfiguracaoConexao;
+end;
+
+destructor TConexaoFiredac.Destroy;
+begin
+  FreeAndNil(FConexao);
+  FreeAndNil(FDriverMySQL);
+  inherited;
+end;
+
+class function TConexaoFiredac.New(ConfiguracaoConexao : iConfiguracaoConexao): iConexao;
+begin
+  Result := Self.Create(ConfiguracaoConexao);
+end;
+
+function TConexaoFiredac.Connection: TCustomConnection;
+begin
+  try
+    FDriverMySQL.VendorLib      := VendorLib;
+
+    FConexao.Params.DriverID    := FConfiguracaoConexao.DriverID;
+    FConexao.Params.Database    := FConfiguracaoConexao.Database;
+    FConexao.Params.UserName    := FConfiguracaoConexao.UserName;
+    FConexao.Params.Password    := FConfiguracaoConexao.Password;
+    FConexao.Params.Add('Port='  + FConfiguracaoConexao.Port);
+    FConexao.Params.Add('Server='+ FConfiguracaoConexao.ServerHost);
+
+    if not FConfiguracaoConexao.LibraryName.IsEmpty then
+      FConexao.Params.Add('LibraryName='+ FConfiguracaoConexao.LibraryName);
+    if not FConfiguracaoConexao.VendorHome.IsEmpty then
+      FConexao.Params.Add('VendorHome='+ FConfiguracaoConexao.VendorHome);
+
+    if not FConfiguracaoConexao.Schema.IsEmpty then
+    begin
+      FConexao.Params.Add('MetaCurSchema='+FConfiguracaoConexao.Schema);
+      FConexao.Params.Add('MetaDefSchema='+FConfiguracaoConexao.Schema);
+    end;
+
+    if not FConfiguracaoConexao.Locking.IsEmpty then
+      FConexao.Params.Add('LockingModel='+FConfiguracaoConexao.Locking);
+
+    FConexao.LoginPrompt := False;
+    FConexao.Connected := True;
+    Result := FConexao;
+  Except
+    raise Exception.Create('Não foi possível realizar a conexão!');
+  end;
+end;
+
+function TConexaoFiredac.VendorLib: String;
+var
+  lFile: TFileStream;
+  lResource: TResourceStream;
+begin
+  Result := ExtractFilePath(ParamStr(0))+'libmysql.dll';
+  if not FileExists(Result) then
+  begin
+    try
+      lResource := TResourceStream.Create(HInstance, 'libmysql', RT_RCDATA);
+      lFile := TFileStream.Create(Result,fmCreate);
+      lResource.SaveToStream(lFile);
+    finally
+      lFile.Free;
+      lResource.Free;
+    end;
+  end;
+end;
+
+end.

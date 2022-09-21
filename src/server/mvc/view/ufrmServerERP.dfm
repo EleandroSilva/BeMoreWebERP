@@ -2,8 +2,8 @@ object frmServerERP: TfrmServerERP
   Left = 271
   Top = 114
   Caption = 'Server ERP'
-  ClientHeight = 235
-  ClientWidth = 399
+  ClientHeight = 476
+  ClientWidth = 641
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,6 +11,7 @@ object frmServerERP: TfrmServerERP
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -56,9 +57,46 @@ object frmServerERP: TfrmServerERP
     TabOrder = 3
     OnClick = ButtonOpenBrowserClick
   end
+  object Button1: TButton
+    Left = 182
+    Top = 112
+    Width = 75
+    Height = 25
+    Caption = 'Button1'
+    TabOrder = 4
+    OnClick = Button1Click
+  end
+  object DBGrid1: TDBGrid
+    Left = 0
+    Top = 210
+    Width = 641
+    Height = 241
+    Align = alBottom
+    DataSource = DataSource1
+    TabOrder = 5
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object DBNavigator1: TDBNavigator
+    Left = 0
+    Top = 451
+    Width = 641
+    Height = 25
+    DataSource = DataSource1
+    Align = alBottom
+    TabOrder = 6
+    ExplicitLeft = 8
+  end
   object ApplicationEvents1: TApplicationEvents
     OnIdle = ApplicationEvents1Idle
-    Left = 288
+    Left = 232
+    Top = 24
+  end
+  object DataSource1: TDataSource
+    Left = 392
     Top = 24
   end
 end

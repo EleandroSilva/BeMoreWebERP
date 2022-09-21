@@ -1,0 +1,26 @@
+unit Model.DAO.Entidade.Interfaces;
+
+interface
+
+uses
+  Model.DAO.Entidade.Interfaces;
+
+type
+  iEntidadePessoa = interface
+    ['{A64F39AF-C737-43AA-B71C-449FBE45CBFE}']
+    function TipoFiltro(Value : Integer) : iEntidadePessoa; overload;
+    function TipoFiltro                  : Integer; overload;
+    function ID(Value: Integer)          : iEntidadePessoa; overload;
+    function ID                          : Integer; overload;
+    function TipoPessoa(Value : String)  : iEntidadePessoa; overload;
+    function TipoPessoa                  : String;  overload;
+    function PrimeiroNome(Value: String) : iEntidadePessoa; overload;
+    function PrimeiroNome                : String;  overload;
+    function SegundoNome(Value: String)  : iEntidadePessoa; overload;
+    function SegundoNome                 : String;  overload;
+    function &End                        : iDAOEntidade<iEntidadePessoa>;
+  end;
+
+implementation
+
+end.

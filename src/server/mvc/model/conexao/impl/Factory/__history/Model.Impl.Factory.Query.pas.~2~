@@ -1,0 +1,47 @@
+﻿unit Model.Impl.Factory.Query.Conexao;
+
+interface
+
+uses
+  Model.Impl.Query.Firedac,
+  Model.Conexao.Interfaces,
+  Model.Factory.Query.Conexao.Interfaces,
+  Model.Query.Interfaces;
+
+type
+  TFactoryQuery = class(TInterfacedObject, iFactoryQuery)
+    private
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iFactoryQuery;
+
+      function FactoryQuery(Connection : iConexao) : iFactoryQuery;
+  end;
+
+implementation
+
+{ TClassePadrao }
+
+constructor TFactoryQuery.Create;
+begin
+  //
+end;
+
+destructor TFactoryQuery.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TFactoryQuery.New: iFactoryQuery;
+begin
+  Result := Self.Create;
+end;
+
+function TFactoryQuery.FactoryQuery(Connection : iConexao) : iFactoryQuery;
+begin
+  Result := TQuery.New(Connection);
+end;
+
+end.

@@ -1,0 +1,133 @@
+unit Model.DAO.Entidade.Impl.Pessoa;
+
+interface
+
+uses
+  Data.DB,
+
+  Controller.Factory.Query.Interfaces,
+  Controller.Impl.Factory.Query,
+
+  Model.DAO.Entidade.Interfaces,
+  Model.Entidade.Pessoa.Interfaces,
+  Model.Query.Firedac.Interfaces,
+
+  Model.Impl.Entidade.Pessoa;
+
+type
+  TDAOEntidadePessoa = class(TInterfacedObject, iDAOEntidade<iEntidadePessoa>)
+    private
+      FQuery                  : iQuery;
+      FPessoa                 : iEntidadePessoa;
+      FControllerFactoryQuery : iControllerFactoryQuery;
+
+      FDataSet    : TDataSet;
+      FTipoFiltro : Integer;
+    Const
+      FSQL=('SELECT * FROM PESSOA');
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iDAOEntidade<iEntidadePessoa>;
+
+      function DataSet(DataSource: TDataSource): iDAOEntidade<iEntidadePessoa>; overload;
+      function DataSet                         : TDataSet;        overload;
+      function Listar(Value : TDataSource)     : iDAOEntidade<iEntidadePessoa>;
+      function ListarTodos                     : iDAOEntidade<iEntidadePessoa>;
+      function ListarPor(Value: Variant)       : iDAOEntidade<iEntidadePessoa>;
+      function Excluir                         : iDAOEntidade<iEntidadePessoa>;
+      function Atualizar                       : iDAOEntidade<iEntidadePessoa>;
+      function Inserir                         : iDAOEntidade<iEntidadePessoa>;
+      function Get                             : iDAOEntidade<iEntidadePessoa>;
+      function Put                             : iDAOEntidade<iEntidadePessoa>;
+      function This: iEntidadePessoa;
+  end;
+
+implementation
+
+{ TClassePadrao }
+constructor TDAOEntidadePessoa.Create;
+begin
+  FPessoa                 := TEntidadePessoa.New(Self);
+  FControllerFactoryQuery := TControllerFactoryQuery.New;
+  FQuery                  := FControllerFactoryQuery
+                                              .FactoryQuery
+                                             .Query(nil);/// TFactoryQuery.New.Query(nil);
+end;
+
+destructor TDAOEntidadePessoa.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TDAOEntidadePessoa.New: iDAOEntidade<iEntidadePessoa>;
+begin
+  Result := Self.Create;
+end;
+
+function TDAOEntidadePessoa.DataSet(DataSource: TDataSource): iDAOEntidade<iEntidadePessoa>;
+begin
+  Result := Self;
+  //if not Assigned(FDataSet) then
+  //  DataSource.DataSet := FControllerFactoryQuery.FactoryQuery.Query.DataSet(DataSource)
+  //else
+  DataSource.DataSet := FDataSet;
+end;
+
+function TDAOEntidadePessoa.DataSet: TDataSet;
+begin
+  Result := FDataSet;
+end;
+
+function TDAOEntidadePessoa.Inserir: iDAOEntidade<iEntidadePessoa>;
+begin
+
+end;
+
+function TDAOEntidadePessoa.Atualizar: iDAOEntidade<iEntidadePessoa>;
+begin
+
+end;
+
+function TDAOEntidadePessoa.Excluir: iDAOEntidade<iEntidadePessoa>;
+begin
+
+end;
+
+function TDAOEntidadePessoa.Get: iDAOEntidade<iEntidadePessoa>;
+begin
+  //
+end;
+
+function TDAOEntidadePessoa.Put: iDAOEntidade<iEntidadePessoa>;
+begin
+  //
+end;
+
+function TDAOEntidadePessoa.Listar(Value: TDataSource): iDAOEntidade<iEntidadePessoa>;
+begin
+  Result := Self;
+  FQuery.Close;
+  FQuery.Clear;
+  FQuery.SQL('SELECT * FROM MUNICIPIO');
+  FQuery.Open;
+  Value.DataSet := FQuery.DataSet;
+end;
+
+function TDAOEntidadePessoa.ListarTodos: iDAOEntidade<iEntidadePessoa>;
+begin
+
+end;
+
+function TDAOEntidadePessoa.ListarPor(Value: Variant): iDAOEntidade<iEntidadePessoa>;
+begin
+
+end;
+
+function TDAOEntidadePessoa.This: iEntidadePessoa;
+begin
+  Result :=
+end;
+
+end.

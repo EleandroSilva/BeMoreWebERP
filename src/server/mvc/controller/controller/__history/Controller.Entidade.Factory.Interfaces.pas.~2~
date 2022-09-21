@@ -1,0 +1,16 @@
+unit Controller.Entidade.Factory.Interfaces;
+
+interface
+
+uses
+  Model.Entidade.Factory.Interfaces;
+
+type
+  iControllerEntidadeFactory = interface
+    ['{98F9CD6A-7AEB-4C68-A3DC-FBFD9D0D71BF}']
+    function EntidadeFactory : iEntidadeFactory;
+  end;
+
+implementation
+
+end.

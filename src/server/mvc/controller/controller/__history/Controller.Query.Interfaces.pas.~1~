@@ -1,0 +1,7 @@
+unit Controller.Query.Interfaces;
+
+interface
+
+implementation
+
+end.

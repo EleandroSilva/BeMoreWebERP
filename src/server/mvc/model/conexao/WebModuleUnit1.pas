@@ -18,7 +18,10 @@ uses
   Datasnap.DSServerMetadata,
   Datasnap.DSClientMetadata,
   Datasnap.DSCommonServer,
-  Datasnap.DSHTTP;
+  Datasnap.DSHTTP, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client;
 
 type
   TWebModule1 = class(TWebModule)
@@ -30,6 +33,7 @@ type
     WebFileDispatcher1: TWebFileDispatcher;
     DSProxyGenerator1: TDSProxyGenerator;
     DSServerMetaDataProvider1: TDSServerMetaDataProvider;
+    FDQuery1: TFDQuery;
     procedure DSServerClass1GetClass(DSServerClass: TDSServerClass;
       var PersistentClass: TPersistentClass);
     procedure ServerFunctionInvokerHTMLTag(Sender: TObject; Tag: TTag;
@@ -138,8 +142,13 @@ begin
   FServerFunctionInvokerAction := ActionByName('ServerFunctionInvokerAction');
 end;
 
+
 initialization
+
+
+
 finalization
+
   Web.WebReq.FreeWebModules;
 
 end.

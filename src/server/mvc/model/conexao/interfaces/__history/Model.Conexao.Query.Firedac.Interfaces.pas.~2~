@@ -1,0 +1,12 @@
+unit Model.Conexao.Query.Firedac.Interfaces;
+
+interface
+
+type
+  iQueryFiredac = interface
+    ['{C54AE0D4-613F-4E20-8839-F6D2847808D5}']
+  end;
+
+implementation
+
+end.

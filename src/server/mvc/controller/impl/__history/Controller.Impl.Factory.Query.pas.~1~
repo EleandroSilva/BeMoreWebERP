@@ -1,0 +1,7 @@
+unit Controller.Impl.Factory.Query;
+
+interface
+
+implementation
+
+end.

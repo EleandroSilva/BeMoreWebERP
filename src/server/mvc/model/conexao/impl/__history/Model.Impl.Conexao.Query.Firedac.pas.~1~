@@ -1,0 +1,7 @@
+unit Model.Impl.Conexao.Query.Firedac;
+
+interface
+
+implementation
+
+end.

@@ -1,0 +1,16 @@
+unit Model.Entidade.Interfaces;
+
+interface
+
+uses
+  Data.DB;
+
+type
+  iEntidade<T> = interface
+    ['{125B169A-B56F-49BF-A92B-303B2F79D0CF}']
+    function Listar(Value : TDataSource) : iEntidade<T>;
+  end;
+
+implementation
+
+end.

@@ -1,0 +1,18 @@
+unit Model.Conexao.Factory.Interfaces;
+
+interface
+
+uses
+  Model.Conexao.Configuracao.Interfaces,
+  Model.Conexao.Query.Firedac.Interfaces;
+
+type
+  iConexaoFactory = interface
+    ['{78FC6D34-458F-4001-80E2-850A9B047DD9}']
+    function ConexaoConfiguracao : iConfiguracao;
+    function ConexaoQueryFiredac : iQueryFiredac;
+  end;
+
+implementation
+
+end.

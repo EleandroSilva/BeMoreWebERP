@@ -1,0 +1,114 @@
+unit Model.Impl.Entidade.Pessoa;
+
+interface
+
+uses
+  System.SysUtils,
+
+  Model.DAO.Entidade.Interfaces,
+  Model.Entidade.Pessoa.Interfaces;
+
+type
+  TEntidadePessoa = class(TInterfacedObject, iEntidadePessoa)
+    private
+      [weak]
+      FParent       : iDAOEntidade<iEntidadePessoa>;
+      FTipoFiltro   : Integer;
+      FId           : Integer;
+      FTipoPessoa   : String;
+      FPrimeiroNome : String;
+      FSegundoNome  : String;
+    public
+      constructor Create(Parent: iDAOEntidade<iEntidadePessoa>);
+      destructor Destroy; override;
+      class function New(Parent: iDAOEntidade<iEntidadePessoa>) : iEntidadePessoa;
+
+      function TipoFiltro(Value : Integer) : iEntidadePessoa; overload;
+      function TipoFiltro                  : Integer; overload;
+      function ID(Value: Integer)          : iEntidadePessoa; overload;
+      function ID                          : Integer; overload;
+      function TipoPessoa(Value : String)  : iEntidadePessoa; overload;
+      function TipoPessoa                  : String;  overload;
+      function PrimeiroNome(Value: String) : iEntidadePessoa; overload;
+      function PrimeiroNome                : String;  overload;
+      function SegundoNome(Value: String)  : iEntidadePessoa; overload;
+      function SegundoNome                 : String;  overload;
+      function &End                        : iDAOEntidade<iEntidadePessoa>;
+  end;
+
+implementation
+
+{ TClassePadrao }
+
+constructor TEntidadePessoa.Create(Parent: iDAOEntidade<iEntidadePessoa>);
+begin
+  FParent := Parent;
+end;
+
+destructor TEntidadePessoa.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TEntidadePessoa.New(Parent: iDAOEntidade<iEntidadePessoa>): iInterface;
+begin
+  Result := Self.Create(Parent);
+end;
+
+function TEntidadePessoa.TipoFiltro(Value: Integer): iEntidadePessoa;
+begin
+
+end;
+
+function TEntidadePessoa.TipoFiltro: Integer;
+begin
+
+end;
+
+function TEntidadePessoa.ID(Value: Integer): iEntidadePessoa;
+begin
+
+end;
+
+function TEntidadePessoa.ID: Integer;
+begin
+
+end;
+
+function TEntidadePessoa.PrimeiroNome: String;
+begin
+
+end;
+
+function TEntidadePessoa.PrimeiroNome(Value: String): iEntidadePessoa;
+begin
+
+end;
+
+function TEntidadePessoa.SegundoNome: String;
+begin
+
+end;
+
+function TEntidadePessoa.SegundoNome(Value: String): iEntidadePessoa;
+begin
+
+end;
+
+function TEntidadePessoa.TipoPessoa: String;
+begin
+
+end;
+
+function TEntidadePessoa.TipoPessoa(Value: String): iEntidadePessoa;
+begin
+
+end;
+
+function TEntidadePessoa.&End: iDAOEntidade<iEntidadePessoa>;
+begin
+  Result := FParent;
+end;
+
+end.

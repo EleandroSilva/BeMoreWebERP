@@ -1,0 +1,64 @@
+unit Model.Conexao.Impl.Factory;
+
+interface
+
+uses
+  System.SysUtils,
+
+  Model.Conexao.Factory.Interfaces,
+
+  Model.Conexao.Interfaces,
+  Model.Conexao.Impl.Firedac.MySQL,
+
+  Model.Conexao.Configuracao.Interfaces,
+  Model.Conexao.Impl.Configuracao;
+
+type
+  TConexaoFactory = class(TInterfacedObject, iConexaoFactory)
+    private
+      FConexao     : iConexao;
+      FConfiguracao : iConfiguracao;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iConexaoFactory;
+
+      function Conexao      : iConexao;
+      function Configuracao : iConfiguracao;
+  end;
+
+implementation
+
+{ TClassePadrao }
+
+function TConexaoFactory.Configuracao: iConfiguracao;
+begin
+  if not Assigned(FConfiguracao) then
+    FConfiguracao := TConfiguracao
+end;
+
+constructor TConexaoFactory.Create;
+begin
+  //
+end;
+
+destructor TConexaoFactory.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TConexaoFactory.New: iConexaoFactory;
+begin
+  Result := Self.Create;
+end;
+
+function TConexaoFactory.Conexao: iConexao;
+begin
+  if not Assigned(FConexao) then
+    FConexao := TConexaoFiredacMySQL.New;
+
+  Result := FConexao;
+end;
+
+end.

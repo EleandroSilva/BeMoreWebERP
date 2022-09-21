@@ -14,7 +14,14 @@ uses
   Vcl.AppEvnts,
   Vcl.StdCtrls,
   IdHTTPWebBrokerBridge,
-  Web.HTTPApp;
+  Web.HTTPApp,
+  Data.DB,
+  Vcl.Grids,
+  Vcl.DBGrids,
+  Controller.Factory.Entidade.DAO.Interfaces,
+  Controller.Impl.Factory.Entidade.DAO, Vcl.ExtCtrls, Vcl.DBCtrls;
+
+
 
 type
   TfrmServerERP = class(TForm)
@@ -24,13 +31,19 @@ type
     Label1: TLabel;
     ApplicationEvents1: TApplicationEvents;
     ButtonOpenBrowser: TButton;
+    Button1: TButton;
+    DBGrid1: TDBGrid;
+    DataSource1: TDataSource;
+    DBNavigator1: TDBNavigator;
     procedure FormCreate(Sender: TObject);
     procedure ApplicationEvents1Idle(Sender: TObject; var Done: Boolean);
     procedure ButtonStartClick(Sender: TObject);
     procedure ButtonStopClick(Sender: TObject);
     procedure ButtonOpenBrowserClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     FServer: TIdHTTPWebBrokerBridge;
+    FController : iControllerFactoryEntidadeDAO;
     procedure StartServer;
     { Private declarations }
   public
@@ -45,13 +58,24 @@ implementation
 {$R *.dfm}
 
 uses
-  WinApi.Windows, Winapi.ShellApi, Datasnap.DSSession;
+  WinApi.Windows,
+  Winapi.ShellApi,
+  Datasnap.DSSession;
 
 procedure TfrmServerERP.ApplicationEvents1Idle(Sender: TObject; var Done: Boolean);
 begin
   ButtonStart.Enabled := not FServer.Active;
   ButtonStop.Enabled := FServer.Active;
   EditPort.Enabled := not FServer.Active;
+end;
+
+procedure TfrmServerERP.Button1Click(Sender: TObject);
+begin
+  FController
+            .DAOFactoryEntidade
+            .Entidade
+            .Pessoa
+            .Listar(DataSource1);
 end;
 
 procedure TfrmServerERP.ButtonOpenBrowserClick(Sender: TObject);
@@ -86,6 +110,8 @@ end;
 procedure TfrmServerERP.FormCreate(Sender: TObject);
 begin
   FServer := TIdHTTPWebBrokerBridge.Create(Self);
+
+  FController  := TControllerFactoryEntidadeDAO.New;
 end;
 
 procedure TfrmServerERP.StartServer;

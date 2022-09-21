@@ -1,0 +1,35 @@
+unit Model.DAO.Factory;
+
+interface
+
+type
+  TFactoryDAO = class(TInterfacedObject, iInterface)
+    private
+      FVariavel : iInterface;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iInterface;
+  end;
+
+implementation
+
+{ TClassePadrao }
+
+constructor TFactoryDAO.Create;
+begin
+  //
+end;
+
+destructor TFactoryDAO.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TFactoryDAO.New: iInterface;
+begin
+  Result := Self.Create;
+end;
+
+end.

@@ -1,0 +1,21 @@
+unit Model.Query.Firedac.Interfaces;
+
+interface
+
+uses
+  Data.DB;
+
+type
+  iQuery = interface
+    ['{C54AE0D4-613F-4E20-8839-F6D2847808D5}']
+    function DataSet(Value : TDataSet) : iQuery;   overload;
+    function DataSet                   : TDataSet; overload;
+    function Close                     : iQuery;
+    function Open                      : iQuery;
+    function Clear                     : iQuery;
+    function SQL(Value : String)       : iQuery;
+  end;
+
+implementation
+
+end.

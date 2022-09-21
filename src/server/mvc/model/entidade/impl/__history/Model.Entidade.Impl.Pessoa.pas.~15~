@@ -1,0 +1,60 @@
+unit Model.Entidade.Impl.Pessoa;
+
+interface
+
+uses
+  Data.DB,
+
+  Model.Entidade.Interfaces,
+  Model.Query.Firedac.Interfaces,
+
+  Controller.Factory.Query.Interfaces,
+  Controller.Impl.Factory.Query;
+
+type
+  TEntidadePessoa = class(TInterfacedObject, iEntidade)
+    private
+      FQuery : iQuery;
+      FControllerFactoryQuery : iControllerFactoryQuery;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iEntidade;
+
+      function Listar(Value : TDataSource) : iEntidade;
+  end;
+
+implementation
+
+{ TClassePadrao }
+
+constructor TEntidadePessoa.Create;
+begin
+  FControllerFactoryQuery := TControllerFactoryQuery.New;
+  FQuery := FControllerFactoryQuery
+                                .FactoryQuery
+                                .Query(nil);/// TFactoryQuery.New.Query(nil);
+end;
+
+destructor TEntidadePessoa.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TEntidadePessoa.New: iEntidade;
+begin
+  Result := Self.Create;
+end;
+
+function TEntidadePessoa.Listar(Value: TDataSource): iEntidade;
+begin
+  Result := Self;
+  FQuery.Close;
+  FQuery.Clear;
+  FQuery.SQL('SELECT * FROM MUNICIPIO');
+  FQuery.Open;
+  Value.DataSet := FQuery.DataSet;
+end;
+
+end.

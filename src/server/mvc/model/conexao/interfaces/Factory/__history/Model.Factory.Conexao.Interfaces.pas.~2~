@@ -1,0 +1,17 @@
+unit Model.Impl.Factory.Conexao.Interfaces;
+
+interface
+
+uses
+  Model.Conexao.Interfaces;
+
+
+type
+  iConexaoFactory = interface
+    ['{78FC6D34-458F-4001-80E2-850A9B047DD9}']
+    function Conexao : iConexao;
+  end;
+
+implementation
+
+end.

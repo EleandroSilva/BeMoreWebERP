@@ -1,0 +1,115 @@
+unit Model.Impl.Query.Firedac;
+
+interface
+
+uses
+  System.SysUtils,
+  Data.DB,
+
+  FireDAC.Stan.Intf,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Param,
+  FireDAC.Stan.Error,
+  FireDAC.DatS,
+  FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf,
+  FireDAC.Stan.Async,
+  FireDAC.DApt,
+  FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client,
+
+  Model.Query.Firedac.Interfaces,
+
+
+  Model.Conexao.Interfaces,
+
+  Model.Conexao.Impl.Firedac.MySQL;
+
+type
+  TQueryFiredac = class(TInterfacedObject, iQuery)
+    private
+      FParent  : iConexao;
+      FQuery   : TFDQuery;
+      FDataSet : TDataSet;
+    public
+      constructor Create(Parent : iConexao);
+      destructor Destroy; override;
+      class function New(Parent : iConexao) : iQuery;
+
+      //function DataSet(Value : TDataSet) : iQuery;   overload;
+      function DataSet                   : TDataSet;// overload;
+      function Close               : iQuery;
+      function Open                : iQuery;
+      function Clear               : iQuery;
+      function SQL(Value : String) : iQuery;
+  end;
+
+implementation
+
+uses
+  Vcl.Dialogs;
+
+{ TClassePadrao }
+constructor TQueryFiredac.Create(Parent : iConexao);
+begin
+  FParent := Parent;
+  FQuery  := TFDQuery.Create(nil);
+
+  if not Assigned(FParent) then
+    FParent := TFiredacMySQL.New;
+
+  FQuery.Connection := TFDConnection(FParent.Connection); //Fazendo um CAST e criando um OBJETO :)--Top
+end;
+
+{
+function TQueryFiredac.DataSet(Value: TDataSet): iQuery;
+begin
+  Result := Self;
+  FDataSet := FQuery;
+end;
+}
+
+function TQueryFiredac.DataSet: TDataSet;
+begin
+  Result := FQuery;
+end;
+
+destructor TQueryFiredac.Destroy;
+begin
+  FreeAndNil(FQuery);
+  inherited;
+end;
+
+class function TQueryFiredac.New(Parent : iConexao) : iQuery;
+begin
+  Result := Self.Create(Parent);
+end;
+
+function TQueryFiredac.Close: iQuery;
+begin
+  Result := Self;
+  FQuery.Close;
+end;
+
+function TQueryFiredac.Clear: iQuery;
+begin
+  Result := Self;
+  FQuery.SQL.Clear;
+end;
+
+function TQueryFiredac.SQL(Value: String): iQuery;
+begin
+  Result := Self;
+  FQuery.SQL.Add(Value);
+end;
+
+function TQueryFiredac.Open: iQuery;
+begin
+  Result := Self;
+  FQuery.Open;
+
+  if FQuery.IsEmpty then
+   showmessage('tabela sem registro');
+end;
+
+end.

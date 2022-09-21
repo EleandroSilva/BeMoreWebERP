@@ -1,0 +1,45 @@
+﻿unit Controller.Impl.Factory.Query;
+
+interface
+
+uses
+  Model.Factory.Query.Interfaces;
+
+type
+  TClassePadrao = class(TInterfacedObject, iFactoryQuery)
+    private
+      FVariavel : iInterface;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iInterface;
+
+      function FactoryQuery : iFactoryQuery;
+  end;
+
+implementation
+
+{ TClassePadrao }
+
+constructor TClassePadrao.Create;
+begin
+  //
+end;
+
+destructor TClassePadrao.Destroy;
+begin
+  //
+  inherited;
+end;
+
+function TClassePadrao.FactoryQuery: iFactoryQuery;
+begin
+
+end;
+
+class function TClassePadrao.New: iFactoryQuery;
+begin
+  Result := Self.Create;
+end;
+
+end.

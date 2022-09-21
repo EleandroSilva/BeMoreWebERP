@@ -1,0 +1,48 @@
+unit Model.Entidade.Impl.Factory;
+
+interface
+
+uses
+  Model.Entidade.Factory.Interfaces,
+  Model.Entidade.Pessoa.Interfaces,
+  Model.Impl.Entidade.Pessoa;
+
+type
+  TClassePadrao = class(TInterfacedObject, iFactoryEntidade)
+    private
+      FEntidadePessoa : iEntidadePessoa;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iFactoryEntidade;
+
+      function EntidadePessoa : iEntidadePessoa;
+  end;
+
+implementation
+
+{ TClassePadrao }
+
+constructor TClassePadrao.Create;
+begin
+  //
+end;
+
+destructor TClassePadrao.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TClassePadrao.New: iFactoryEntidade;
+begin
+  Result := Self.Create;
+end;
+
+function TClassePadrao.EntidadePessoa: iEntidadePessoa;
+begin
+  if not Assigned(FEntidadePessoa) then
+    FEntidadePessoa := TEntidadePessoa.New;
+end;
+
+end.

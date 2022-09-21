@@ -1,0 +1,47 @@
+unit Model.DAO.Factory;
+
+interface
+
+uses
+  System.SysUtils,
+  Model.DAO.Entidade.Factory.Interfaces;
+
+type
+  TFactoryDAO = class(TInterfacedObject, iDAOFactory)
+    private
+      FEntidade : iFactoryEntidade;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iDAOFactory;
+
+      function Entidade: iFactoryEntidade;
+  end;
+
+implementation
+
+{ TClassePadrao }
+
+constructor TFactoryDAO.Create;
+begin
+  //
+end;
+
+destructor TFactoryDAO.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TFactoryDAO.New: iDAOFactory;
+begin
+  Result := Self.Create;
+end;
+
+function TFactoryDAO.Entidade: iFactoryEntidade;
+begin
+//  if not ass then
+
+end;
+
+end.

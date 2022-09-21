@@ -87,6 +87,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <DCC_ExeOutput>C:\RedeInfocon\Gtihub\.exe\ServerERPRest\</DCC_ExeOutput>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
+        <DCC_DcuOutput>.\lib</DCC_DcuOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -116,9 +117,29 @@ $(PostBuildEvent)]]></PostBuildEvent>
             <Form>frmServerERP</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="src\server\mvc\model\conexao\interfaces\Model.Conexao.Interfaces.pas"/>
         <DCCReference Include="src\server\mvc\model\conexao\interfaces\Model.Conexao.Configuracao.Interfaces.pas"/>
-        <DCCReference Include="src\server\mvc\model\conexao\impl\Model.Impl.Configuracao.Conexao.pas"/>
+        <DCCReference Include="src\server\mvc\model\conexao\interfaces\Model.Conexao.Interfaces.pas"/>
+        <DCCReference Include="src\server\mvc\model\conexao\impl\Model.Impl.Conexao.Configuracao.pas"/>
+        <DCCReference Include="src\server\mvc\model\conexao\impl\Model.Impl.Conexao.Firedac.MySQL.pas"/>
+        <DCCReference Include="src\server\mvc\model\conexao\interfaces\Factory\Model.Factory.Conexao.Interfaces.pas"/>
+        <DCCReference Include="src\server\mvc\model\conexao\impl\Factory\Model.Impl.Factory.Conexao.pas"/>
+        <DCCReference Include="src\server\mvc\controller\controller\Controller.Factory.Conexao.Interfaces.pas"/>
+        <DCCReference Include="src\server\mvc\controller\impl\Controller.Impl.Factory.Conexao.pas"/>
+        <DCCReference Include="src\server\mvc\model\conexao\interfaces\Model.Query.Interfaces.pas"/>
+        <DCCReference Include="src\server\mvc\model\conexao\interfaces\Factory\Model.Factory.Query.Interfaces.pas"/>
+        <DCCReference Include="src\server\mvc\controller\controller\Controller.Factory.Query.Interfaces.pas"/>
+        <DCCReference Include="src\server\mvc\controller\impl\Controller.Impl.Factory.Query.pas"/>
+        <DCCReference Include="src\server\mvc\model\DAO\interfaces\Model.DAO.Entidade.Interfaces.pas"/>
+        <DCCReference Include="src\server\mvc\model\DAO\impl\Model.Impl.DAO.Entidade.Pessoa.pas"/>
+        <DCCReference Include="src\server\mvc\model\entidade\impl\Model.Impl.Entidade.Pessoa.pas"/>
+        <DCCReference Include="src\server\mvc\model\DAO\interfaces\Factory\Model.DAO.Entidade.Factory.Interfaces.pas"/>
+        <DCCReference Include="src\server\mvc\model\DAO\impl\Factory\Model.Impl.Factory.Entidade.DAO.pas"/>
+        <DCCReference Include="src\server\mvc\model\DAO\impl\Factory\Model.Impl.Factory.DAO.pas"/>
+        <DCCReference Include="src\server\mvc\model\entidade\interfaces\Model.Entidade.Pessoa.Interfaces.pas"/>
+        <DCCReference Include="src\server\mvc\controller\controller\Controller.Factory.Entidade.DAO.Interfaces.pas"/>
+        <DCCReference Include="src\server\mvc\controller\impl\Controller.Impl.Factory.Entidade.DAO.pas"/>
+        <DCCReference Include="src\server\mvc\model\conexao\impl\Model.Impl.Query.Firedac.pas"/>
+        <DCCReference Include="src\server\mvc\model\conexao\impl\Factory\Model.Impl.Factory.Query.pas"/>
         <None Include="js\base64.js"/>
         <None Include="js\serverfunctionexecutor.js"/>
         <None Include="js\json2.js"/>
@@ -168,10 +189,10 @@ $(PostBuildEvent)]]></PostBuildEvent>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="js\base64.js" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="images\collapse.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win64">
-                        <RemoteDir>.\js\</RemoteDir>
-                        <RemoteName>base64.js</RemoteName>
+                        <RemoteDir>.\images\</RemoteDir>
+                        <RemoteName>collapse.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -525,6 +546,13 @@ $(PostBuildEvent)]]></PostBuildEvent>
                     <Platform Name="Win32">
                         <RemoteDir>.\css\</RemoteDir>
                         <RemoteName>serverfunctioninvoker.css</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="js\serverfunctionexecutor-min.js" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\js\</RemoteDir>
+                        <RemoteName>serverfunctionexecutor-min.js</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -534,13 +562,6 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="js\serverfunctionexecutor-min.js" Configuration="Release" Class="ProjectFile">
-                    <Platform Name="Win64">
-                        <RemoteDir>.\js\</RemoteDir>
-                        <RemoteName>serverfunctionexecutor-min.js</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName="css\main.css" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\css\</RemoteDir>
@@ -626,10 +647,10 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="images\collapse.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="js\base64.js" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win64">
-                        <RemoteDir>.\images\</RemoteDir>
-                        <RemoteName>collapse.png</RemoteName>
+                        <RemoteDir>.\js\</RemoteDir>
+                        <RemoteName>base64.js</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

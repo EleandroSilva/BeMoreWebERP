@@ -1,0 +1,12 @@
+unit Model.Entidade.Pessoa.Interfaces;
+
+interface
+
+type
+  iEntidade = interface
+    ['{125B169A-B56F-49BF-A92B-303B2F79D0CF}']
+  end;
+
+implementation
+
+end.

@@ -1,0 +1,7 @@
+unit Model.Factory.Query;
+
+interface
+
+implementation
+
+end.

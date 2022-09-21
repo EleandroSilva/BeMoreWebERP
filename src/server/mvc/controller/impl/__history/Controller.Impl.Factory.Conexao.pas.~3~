@@ -1,0 +1,50 @@
+﻿unit Controller.Impl.Factory.Conexao;
+
+interface
+
+uses
+  Model.Factory.Conexao.Interfaces,
+  Controller.Factory.Conexao.Interfaces,
+  Model.Impl.Factory.Conexao;
+
+type
+  TControllerConexaoFactory = class(TInterfacedObject, iControllerFactoryConexao)
+    private
+      FFactoryConexao : iFactoryConexao;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iControllerFactoryConexao;
+
+      function ConexaoFactory : iFactoryConexao;
+  end;
+
+implementation
+
+{ TClassePadrao }
+
+constructor TControllerConexaoFactory.Create;
+begin
+  //
+end;
+
+destructor TControllerConexaoFactory.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TControllerConexaoFactory.New: iControllerFactoryConexao;
+begin
+  Result := Self.Create;
+end;
+
+function TControllerConexaoFactory.ConexaoFactory: iFactoryConexao;
+begin
+  if not Assigned(FFactoryConexao) then
+    FFactoryConexao := TConexaoFactory.New;
+
+  Result := FFactoryConexao;
+end;
+
+end.

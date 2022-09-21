@@ -1,0 +1,13 @@
+unit Model.Factory.Query.Interfaces;
+
+interface
+
+type
+  iFactoryQuery = interface
+    ['{5610756B-E786-47F8-9CBD-87D9A6D6B99F}']
+    function
+  end;
+
+implementation
+
+end.

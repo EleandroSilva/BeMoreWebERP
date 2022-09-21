@@ -1,0 +1,51 @@
+unit Model.Entidade.Impl.Pessoa;
+
+interface
+
+uses
+  Model.Entidade.Interfaces,
+
+  Model.Query.Firedac.Interfaces,
+
+  Model.Factory.Query.Interfaces,
+
+  Model.Factory.Query;
+
+type
+  TEntidadePessoa = class(TInterfacedObject, iEntidade)
+    private
+      FQuery : iQuery;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iEntidade;
+
+      function Entidade : iEntidade;
+  end;
+
+implementation
+
+{ TClassePadrao }
+
+constructor TEntidadePessoa.Create;
+begin
+  FQuery := TFactoryQuery.New.Query(nil);
+end;
+
+destructor TEntidadePessoa.Destroy;
+begin
+  //
+  inherited;
+end;
+
+function TEntidadePessoa.Entidade: iEntidade;
+begin
+
+end;
+
+class function TEntidadePessoa.New: iEntidade;
+begin
+  Result := Self.Create;
+end;
+
+end.
