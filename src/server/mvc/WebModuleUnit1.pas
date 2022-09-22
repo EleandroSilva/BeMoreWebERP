@@ -18,10 +18,10 @@ uses
   Datasnap.DSServerMetadata,
   Datasnap.DSClientMetadata,
   Datasnap.DSCommonServer,
-  Datasnap.DSHTTP, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
-  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
-  FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client;
+  Datasnap.DSHTTP,
+  System.JSON,
+  Data.DBXCommon,
+  View.Entidade.Pessoa.DataModule;
 
 type
   TWebModule1 = class(TWebModule)
@@ -33,7 +33,7 @@ type
     WebFileDispatcher1: TWebFileDispatcher;
     DSProxyGenerator1: TDSProxyGenerator;
     DSServerMetaDataProvider1: TDSServerMetaDataProvider;
-    FDQuery1: TFDQuery;
+    ServerEntidadePessoa: TDSServerClass;
     procedure DSServerClass1GetClass(DSServerClass: TDSServerClass;
       var PersistentClass: TPersistentClass);
     procedure ServerFunctionInvokerHTMLTag(Sender: TObject; Tag: TTag;
@@ -46,6 +46,11 @@ type
       const AFileName: string; Request: TWebRequest; Response: TWebResponse;
       var Handled: Boolean);
     procedure WebModuleCreate(Sender: TObject);
+    procedure ServerEntidadePessoaGetClass(DSServerClass: TDSServerClass;
+      var PersistentClass: TPersistentClass);
+    procedure DSRESTWebDispatcher1FormatResult(Sender: TObject;
+      var ResultVal: TJSONValue; const Command: TDBXCommand;
+      var Handled: Boolean);
   private
     { Private declarations }
     FServerFunctionInvokerAction: TWebActionItem;
@@ -62,12 +67,39 @@ implementation
 
 {$R *.dfm}
 
-uses ServerMethodsUnit1, Web.WebReq;
+uses
+  ServerMethodsUnit1,
+  Web.WebReq;
+
+procedure TWebModule1.DSRESTWebDispatcher1FormatResult(Sender: TObject;
+  var ResultVal: TJSONValue; const Command: TDBXCommand; var Handled: Boolean);
+var
+  FJSONValue : TJSONValue;
+begin
+  if FResultadoGet then
+  begin
+    FJSONValue := ResultVal;
+    try
+      ResultVal := TJSONArray(FJSONValue).Remove(0);
+    finally
+      FJSONValue.Free;
+    end;
+    Handled := True;
+  end;
+end;
 
 procedure TWebModule1.DSServerClass1GetClass(
   DSServerClass: TDSServerClass; var PersistentClass: TPersistentClass);
 begin
   PersistentClass := ServerMethodsUnit1.TServerMethods1;
+end;
+
+
+procedure TWebModule1.ServerEntidadePessoaGetClass(
+  DSServerClass: TDSServerClass; var PersistentClass: TPersistentClass);
+begin
+  //PersistentClass := View.Entidade.Pessoa.TPessoa;
+  PersistentClass := View.Entidade.Pessoa.DataModule.TPessoa;
 end;
 
 procedure TWebModule1.ServerFunctionInvokerHTMLTag(Sender: TObject; Tag: TTag;

@@ -1,0 +1,89 @@
+unit View.Entidade.Pessoa.DataModule;
+
+interface
+
+uses
+  System.SysUtils,
+  System.Classes,
+  System.JSON,
+
+  Controller.Factory.Entidade.DAO.Interfaces,
+  Controller.Impl.Factory.Entidade.DAO;
+
+
+{$METHODINFO ON}
+
+type
+  TPessoa = class(TDataModule)
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+    FController : iControllerFactoryEntidadeDAO;
+  public
+    { Public declarations }
+    function Pessoa(const Key : String) : TJsonArray;
+    procedure acceptPessoa(const Key : String; jObject : TJsonObject);
+    procedure updatePessoa(const Key : String; jObject : TJsonObject);
+    procedure cancelPessoa(const Key : String);
+  end;
+
+{$METHODINFO OFF}
+
+var
+  Pessoa: TPessoa;
+  FResultadoGet : Boolean;
+
+implementation
+
+uses
+  Vcl.Dialogs;
+
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+procedure TPessoa.cancelPessoa(const Key: String);
+begin
+  FController
+          .DAOFactoryEntidade
+           .Entidade
+            .Pessoa
+             .Delete(Key);
+end;
+
+procedure TPessoa.DataModuleCreate(Sender: TObject);
+begin
+  FController := TControllerFactoryEntidadeDAO.New;
+end;
+
+function TPessoa.Pessoa(const Key: String): TJsonArray;
+begin
+  Result := FController
+                  .DAOFactoryEntidade
+                   .Entidade
+                    .Pessoa
+                     .Get(Key);
+  FResultadoGet := True;
+end;
+
+procedure TPessoa.acceptPessoa(const Key: String; jObject: TJsonObject);
+begin
+  FController
+          .DAOFactoryEntidade
+           .Entidade
+            .Pessoa
+             .Put(Key, jObject);
+end;
+
+procedure TPessoa.updatePessoa(const Key: String; jObject: TJsonObject);
+begin
+   FController
+          .DAOFactoryEntidade
+           .Entidade
+            .Pessoa
+             .Post(Key, jObject);
+end;
+
+
+end.

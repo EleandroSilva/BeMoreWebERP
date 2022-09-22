@@ -1,0 +1,5 @@
+object Pessoa: TPessoa
+  OldCreateOrder = False
+  Height = 448
+  Width = 407
+end

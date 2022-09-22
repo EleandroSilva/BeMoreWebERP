@@ -4,6 +4,7 @@ interface
 
 uses
   System.SysUtils,
+  System.JSON,
   Data.DB,
 
   FireDAC.Stan.Intf,
@@ -34,9 +35,12 @@ type
       class function New(Parent : iConexao) : iQuery;
 
       function DataSet             : TDataSet;
-      function Close               : iQuery;
+      function Query   : TFDQuery;
+      function Params(Param: String; Value: Variant): iQuery; overload;
+      function Params(Param: String) : Variant; overload;
       function Open                : iQuery;
-      function Clear               : iQuery;
+      function ExecSQL             : iQuery;
+      function ApplyUpdates        : iQuery;
       function SQL(Value : String) : iQuery;
   end;
 
@@ -55,17 +59,19 @@ begin
     FParent := TFiredacMySQL.New;
 
   FQuery.Connection := TFDConnection(FParent.Connection); //Fazendo um CAST e criando um OBJETO :)--Top
-end;
-
-function TQuery.DataSet: TDataSet;
-begin
-  Result := FQuery;
+  FQuery.AutoCalcFields := True;
+  FQuery.CachedUpdates := True;
 end;
 
 destructor TQuery.Destroy;
 begin
-  FreeAndNil(FQuery);
+  FQuery.DisposeOf;
   inherited;
+end;
+
+function TQuery.ExecSQL: iQuery;
+begin
+  FQuery.ExecSQL;
 end;
 
 class function TQuery.New(Parent : iConexao) : iQuery;
@@ -73,21 +79,32 @@ begin
   Result := Self.Create(Parent);
 end;
 
-function TQuery.Close: iQuery;
+function TQuery.DataSet: TDataSet;
 begin
-  Result := Self;
-  FQuery.Close;
+ Result := FQuery;
 end;
 
-function TQuery.Clear: iQuery;
+function TQuery.Params(Param: String; Value: Variant): iQuery;
 begin
   Result := Self;
-  FQuery.SQL.Clear;
+  FQuery.ParamByName(Param).Value := Value;
+end;
+
+function TQuery.Params(Param: String): Variant;
+begin
+  Result := FQuery.ParamByName(Param).Value;
+end;
+
+function TQuery.Query: TFDQuery;
+begin
+  Result := FQuery;
 end;
 
 function TQuery.SQL(Value: String): iQuery;
 begin
   Result := Self;
+  FQuery.Close;
+  FQuery.SQL.Clear;
   FQuery.SQL.Add(Value);
 end;
 
@@ -95,9 +112,11 @@ function TQuery.Open: iQuery;
 begin
   Result := Self;
   FQuery.Open;
+end;
 
-  if FQuery.IsEmpty then
-   showmessage('tabela sem registro');
+function TQuery.ApplyUpdates: iQuery;
+begin
+  FQuery.ApplyUpdates(-1);
 end;
 
 end.

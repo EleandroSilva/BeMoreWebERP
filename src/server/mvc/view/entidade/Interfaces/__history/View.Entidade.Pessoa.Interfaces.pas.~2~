@@ -1,0 +1,13 @@
+unit View.Entidade.Pessoa.Interfaces;
+
+interface
+
+type
+  iViewPessoa = interface
+    ['{64E01761-2F2B-4D68-A0BB-85837DAB8AD8}']
+    function Get
+  end;
+
+implementation
+
+end.

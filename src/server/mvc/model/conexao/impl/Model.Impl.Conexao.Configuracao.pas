@@ -42,7 +42,7 @@ end;
 
 destructor TConfiguracao.Destroy;
 begin
-  FreeAndNil(FArquivoIni);
+  FArquivoIni.DisposeOf;
   inherited;
 end;
 

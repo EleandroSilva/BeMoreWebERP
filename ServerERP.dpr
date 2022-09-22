@@ -32,7 +32,16 @@ uses
   Controller.Impl.Factory.Entidade.DAO in 'src\server\mvc\controller\impl\Controller.Impl.Factory.Entidade.DAO.pas',
   Model.Impl.Query.Firedac in 'src\server\mvc\model\conexao\impl\Model.Impl.Query.Firedac.pas',
   Model.Impl.Factory.Query in 'src\server\mvc\model\conexao\impl\Factory\Model.Impl.Factory.Query.pas',
-  WebModuleUnit1 in 'src\server\mvc\WebModuleUnit1.pas' {WebModule1: TWebModule};
+  WebModuleUnit1 in 'src\server\mvc\WebModuleUnit1.pas' {WebModule1: TWebModule},
+  View.Entidade.Pessoa in 'src\server\mvc\view\entidade\Impl\View.Entidade.Pessoa.pas',
+  View.Entidade.Pessoa.Interfaces in 'src\server\mvc\view\entidade\Interfaces\View.Entidade.Pessoa.Interfaces.pas',
+  DataSetConverter4D.Helper in 'src\server\Uteis\DataSetConverter4D.Helper.pas',
+  DataSetConverter4D.Impl in 'src\server\Uteis\DataSetConverter4D.Impl.pas',
+  DataSetConverter4D in 'src\server\Uteis\DataSetConverter4D.pas',
+  DataSetConverter4D.UnitTest in 'src\server\Uteis\DataSetConverter4D.UnitTest.pas',
+  DataSetConverter4D.Util in 'src\server\Uteis\DataSetConverter4D.Util.pas',
+  View.Entidade.Pessoa.DataModule in 'src\server\mvc\view\entidade\Impl\View.Entidade.Pessoa.DataModule.pas' {Pessoa: TDataModule},
+  Uteis.Uteis in 'src\server\Uteis\Uteis.Uteis.pas';
 
 {$R *.res}
 

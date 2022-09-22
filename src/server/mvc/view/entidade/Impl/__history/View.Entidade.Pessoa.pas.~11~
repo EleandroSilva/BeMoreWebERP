@@ -1,0 +1,29 @@
+unit View.Entidade.Pessoa;
+
+interface
+
+uses
+  System.SysUtils,
+  System.Classes,
+
+  Controller.Factory.Entidade.DAO.Interfaces;
+
+type
+  TPessoa = class(TDataModule)
+  private
+    FController : iControllerFactoryEntidadeDAO;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Pessoa: TPessoa;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

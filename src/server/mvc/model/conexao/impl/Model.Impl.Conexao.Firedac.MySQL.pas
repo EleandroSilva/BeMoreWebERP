@@ -40,7 +40,6 @@ type
       FDriverMySQL  : TFDPhysMySQLDriverLink;
       FFile         : TFileStream;
       FResource     : TResourceStream;
-
       FConfiguracao : iConfiguracao;
 
       function VendorLib : String;
@@ -65,8 +64,8 @@ end;
 
 destructor TFiredacMySQL.Destroy;
 begin
-  FreeAndNil(FConexao);
-  FreeAndNil(FDriverMySQL);
+  FConexao.DisposeOf;
+  FDriverMySQL.DisposeOf;
   inherited;
 end;
 

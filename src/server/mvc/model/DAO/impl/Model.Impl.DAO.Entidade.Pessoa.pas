@@ -3,7 +3,12 @@ unit Model.Impl.DAO.Entidade.Pessoa;
 interface
 
 uses
+  System.JSON,
   Data.DB,
+
+  DataSetConverter4D.Helper,
+  DataSetConverter4D.Impl,
+
 
   Controller.Factory.Query.Interfaces,
   Controller.Impl.Factory.Query,
@@ -28,14 +33,16 @@ type
       destructor Destroy; override;
       class function New : iDAOEntidade<iEntidadePessoa>;
 
-      function Listar(Value : TDataSource)     : iDAOEntidade<iEntidadePessoa>;
-      function ListarTodos                     : iDAOEntidade<iEntidadePessoa>;
-      function ListarPor(Value: Variant)       : iDAOEntidade<iEntidadePessoa>;
-      function Excluir                         : iDAOEntidade<iEntidadePessoa>;
-      function Atualizar                       : iDAOEntidade<iEntidadePessoa>;
-      function Inserir                         : iDAOEntidade<iEntidadePessoa>;
-      function Get                             : iDAOEntidade<iEntidadePessoa>;
-      function Put                             : iDAOEntidade<iEntidadePessoa>;
+      function Listar(Value : TDataSource)      : iDAOEntidade<iEntidadePessoa>;
+      function ListarTodos                      : iDAOEntidade<iEntidadePessoa>;
+      function ListarPor(Value: Variant)        : iDAOEntidade<iEntidadePessoa>;
+      function Excluir                          : iDAOEntidade<iEntidadePessoa>;
+      function Atualizar                        : iDAOEntidade<iEntidadePessoa>;
+      function Inserir                          : iDAOEntidade<iEntidadePessoa>;
+      function Get(const Key    : String = '')    : TJsonArray;
+      function Put(const Key    : String; jObject : TJsonObject) :iDAOEntidade<iEntidadePessoa>;
+      function Post(const Key   : String; jObject : TJsonObject) :iDAOEntidade<iEntidadePessoa>;
+      function Delete(const Key : String)                        :iDAOEntidade<iEntidadePessoa>;
       function This: iEntidadePessoa;
   end;
 
@@ -46,9 +53,7 @@ constructor TDAOEntidadePessoa.Create;
 begin
   FPessoa                 := TEntidadePessoa.New(Self);
   FControllerFactoryQuery := TControllerFactoryQuery.New;
-  FQuery                  := FControllerFactoryQuery
-                                              .FactoryQuery
-                                             .Query(nil);
+  FQuery := FControllerFactoryQuery.FactoryQuery.Query(nil);
 end;
 
 destructor TDAOEntidadePessoa.Destroy;
@@ -59,6 +64,43 @@ end;
 class function TDAOEntidadePessoa.New: iDAOEntidade<iEntidadePessoa>;
 begin
   Result := Self.Create;
+end;
+
+function TDAOEntidadePessoa.Get(const Key : String = ''):TJsonArray;
+begin
+  if Key='' then
+    FQuery.SQL(FSQL) else
+    FQuery.SQL(FSQL+' WHERE ID='+ Key);
+
+  FQuery.Open;
+  Result:= FQuery.DataSet.AsJSONArray;
+end;
+
+function TDAOEntidadePessoa.Put(const Key: string; jObject: TJsonObject): iDAOEntidade<iEntidadePessoa>;
+begin
+  Result := Self;
+  FQuery.SQL(FSQL+' WHERE 1 = 2 ');
+  FQuery.Open;
+  FQuery.DataSet.FromJSONObject(jObject);
+  FQuery.ApplyUpdates;
+end;
+
+function TDAOEntidadePessoa.Post(const Key: string; jObject: TJsonObject): iDAOEntidade<iEntidadePessoa>;
+begin
+  Result := Self;
+  FQuery.SQL(FSQL+' WHERE ID= :ID');
+  FQuery.Params('ID', Key);
+  FQuery.Open;
+  FQuery.DataSet.RecordFromJSONObject(jObject);
+  FQuery.ApplyUpdates;
+end;
+
+function TDAOEntidadePessoa.Delete(const Key : String): iDAOEntidade<iEntidadePessoa>;
+begin
+  Result := Self;
+  FQuery.SQL('DELETE FROM PESSOA WHERE ID= :ID');
+  FQuery.Params('ID', Key);
+  FQuery.ExecSQL;
 end;
 
 function TDAOEntidadePessoa.Inserir: iDAOEntidade<iEntidadePessoa>;
@@ -76,21 +118,9 @@ begin
 
 end;
 
-function TDAOEntidadePessoa.Get: iDAOEntidade<iEntidadePessoa>;
-begin
-  //
-end;
-
-function TDAOEntidadePessoa.Put: iDAOEntidade<iEntidadePessoa>;
-begin
-  //
-end;
-
 function TDAOEntidadePessoa.Listar(Value: TDataSource): iDAOEntidade<iEntidadePessoa>;
 begin
   Result := Self;
-  FQuery.Close;
-  FQuery.Clear;
   FQuery.SQL(FSQL);
   FQuery.Open;
   Value.DataSet := FQuery.DataSet;

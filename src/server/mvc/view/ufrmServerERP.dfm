@@ -88,7 +88,6 @@ object frmServerERP: TfrmServerERP
     DataSource = DataSource1
     Align = alBottom
     TabOrder = 6
-    ExplicitLeft = 8
   end
   object ApplicationEvents1: TApplicationEvents
     OnIdle = ApplicationEvents1Idle
