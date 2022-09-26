@@ -1,0 +1,40 @@
+unit Model.Impl.Entidade.Logradouro;
+
+interface
+
+uses
+  Model.Entidade.Logradouro.Interfaces,
+  Model.DAO.Entidade.Interfaces;
+
+type
+  TEntidadeLogradouro = class(TInterfacedObject, iEntidadeLogradouro)
+    private
+      [Weak]
+      FParent : iDAOEntidade<iEntidadeLogradouro>;
+    public
+      constructor Create(Parent :iDAOEntidade<iEntidadeLogradouro>);
+      destructor Destroy; override;
+      class function New(Parent : iDAOEntidade<iEntidadeLogradouro>) : iEntidadeLogradouro;
+  end;
+
+implementation
+
+{ TClassePadrao }
+
+constructor TEntidadeLogradouro.Create(Parent :iDAOEntidade<iEntidadeLogradouro>);
+begin
+  FParent := Parent;
+end;
+
+destructor TEntidadeLogradouro.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TEntidadeLogradouro.New(Parent : iDAOEntidade<iEntidadeLogradouro>) : iEntidadeLogradouro;
+begin
+  Result := Self.Create(Parent);
+end;
+
+end.

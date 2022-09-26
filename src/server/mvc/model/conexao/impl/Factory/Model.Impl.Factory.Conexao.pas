@@ -45,7 +45,7 @@ end;
 function TFactoryConexao.FactoryConexao : iConexao;
 begin
   if not Assigned(FFactoryConexao) then
-    FFactoryConexao := TFiredacMySQL.New;
+    FFactoryConexao := TConexaoFiredacMySQL.New;
 
   Result := FFactoryConexao;
 end;

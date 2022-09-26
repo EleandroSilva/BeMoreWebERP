@@ -6,6 +6,7 @@ uses
   System.SysUtils,
   System.JSON,
   Data.DB,
+  Vcl.Dialogs,
 
   FireDAC.Stan.Intf,
   FireDAC.Stan.Option,
@@ -27,40 +28,36 @@ uses
 type
   TQuery = class(TInterfacedObject, iQuery)
     private
-      FParent  : iConexao;
-      FQuery   : TFDQuery;
+      FParent                   : iConexao;
+      FQuery                    : TFDQuery;
     public
       constructor Create(Parent : iConexao);
       destructor Destroy; override;
-      class function New(Parent : iConexao) : iQuery;
+      class function New(Parent : iConexao)         : iQuery;
 
-      function DataSet             : TDataSet;
-      function Query   : TFDQuery;
-      function Params(Param: String; Value: Variant): iQuery; overload;
-      function Params(Param: String) : Variant; overload;
-      function Open                : iQuery;
-      function ExecSQL             : iQuery;
-      function ApplyUpdates        : iQuery;
-      function SQL(Value : String) : iQuery;
+      function DataSet                              : TDataSet;
+      function Params(Param: String; Value: Variant): iQuery;  overload;
+      function Params(Param: String)                : Variant; overload;
+      function Open                                 : iQuery;
+      function ExecSQL                              : iQuery;
+      function ApplyUpdates                         : iQuery;
+      function SQL(Value : String)                  : iQuery;
   end;
 
 implementation
 
-uses
-  Vcl.Dialogs;
-
 { TClassePadrao }
 constructor TQuery.Create(Parent : iConexao);
 begin
-  FParent := Parent;
-  FQuery  := TFDQuery.Create(nil);
+  FParent               := Parent;
+  FQuery                := TFDQuery.Create(nil);
 
   if not Assigned(FParent) then
-    FParent := TFiredacMySQL.New;
+    FParent := TConexaoFiredacMySQL.New;
 
-  FQuery.Connection := TFDConnection(FParent.Connection); //Fazendo um CAST e criando um OBJETO :)--Top
+  FQuery.Connection     := TFDConnection(FParent.Connection);
   FQuery.AutoCalcFields := True;
-  FQuery.CachedUpdates := True;
+  FQuery.CachedUpdates  := True;
 end;
 
 destructor TQuery.Destroy;
@@ -93,11 +90,6 @@ end;
 function TQuery.Params(Param: String): Variant;
 begin
   Result := FQuery.ParamByName(Param).Value;
-end;
-
-function TQuery.Query: TFDQuery;
-begin
-  Result := FQuery;
 end;
 
 function TQuery.SQL(Value: String): iQuery;

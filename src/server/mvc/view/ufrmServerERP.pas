@@ -18,11 +18,8 @@ uses
   Data.DB,
   Vcl.Grids,
   Vcl.DBGrids,
-  Controller.Factory.Entidade.DAO.Interfaces,
-  Controller.Impl.Factory.Entidade.DAO,
-
-
- Vcl.ExtCtrls, Vcl.DBCtrls;
+  Vcl.ExtCtrls,
+  Vcl.DBCtrls;
 
 
 
@@ -43,10 +40,8 @@ type
     procedure ButtonStartClick(Sender: TObject);
     procedure ButtonStopClick(Sender: TObject);
     procedure ButtonOpenBrowserClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
   private
     FServer: TIdHTTPWebBrokerBridge;
-    FController : iControllerFactoryEntidadeDAO;
     procedure StartServer;
     { Private declarations }
   public
@@ -70,15 +65,6 @@ begin
   ButtonStart.Enabled := not FServer.Active;
   ButtonStop.Enabled := FServer.Active;
   EditPort.Enabled := not FServer.Active;
-end;
-
-procedure TfrmServerERP.Button1Click(Sender: TObject);
-begin
-  FController
-            .DAOFactoryEntidade
-            .Entidade
-            .Pessoa
-            .Listar(DataSource1);
 end;
 
 procedure TfrmServerERP.ButtonOpenBrowserClick(Sender: TObject);
@@ -113,8 +99,6 @@ end;
 procedure TfrmServerERP.FormCreate(Sender: TObject);
 begin
   FServer := TIdHTTPWebBrokerBridge.Create(Self);
-
-  FController  := TControllerFactoryEntidadeDAO.New;
 end;
 
 procedure TfrmServerERP.StartServer;

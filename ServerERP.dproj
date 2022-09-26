@@ -140,19 +140,25 @@ $(PostBuildEvent)]]></PostBuildEvent>
             <FormType>dfm</FormType>
             <DesignClass>TWebModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="src\server\mvc\view\entidade\Impl\View.Entidade.Pessoa.pas"/>
-        <DCCReference Include="src\server\mvc\view\entidade\Interfaces\View.Entidade.Pessoa.Interfaces.pas"/>
         <DCCReference Include="src\server\Uteis\DataSetConverter4D.Helper.pas"/>
         <DCCReference Include="src\server\Uteis\DataSetConverter4D.Impl.pas"/>
         <DCCReference Include="src\server\Uteis\DataSetConverter4D.pas"/>
         <DCCReference Include="src\server\Uteis\DataSetConverter4D.UnitTest.pas"/>
         <DCCReference Include="src\server\Uteis\DataSetConverter4D.Util.pas"/>
-        <DCCReference Include="src\server\mvc\view\entidade\Impl\View.Entidade.Pessoa.DataModule.pas">
+        <DCCReference Include="src\server\mvc\view\entidade\Impl\View.Entidade.Pessoa.pas">
             <Form>Pessoa</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="src\server\Uteis\Uteis.Uteis.pas"/>
+        <DCCReference Include="src\server\mvc\model\entidade\interfaces\Model.Entidade.Logradouro.Interfaces.pas"/>
+        <DCCReference Include="src\server\mvc\model\entidade\impl\Model.Impl.Entidade.Logradouro.pas"/>
+        <DCCReference Include="src\server\mvc\model\DAO\impl\Model.Impl.DAO.Entidade.Logradouro.pas"/>
+        <DCCReference Include="src\server\mvc\view\entidade\Impl\View.Entidade.Logradouro.pas">
+            <Form>Logradouro</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <None Include="js\base64.js"/>
         <None Include="js\serverfunctionexecutor.js"/>
         <None Include="js\json2.js"/>

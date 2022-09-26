@@ -1,0 +1,156 @@
+unit Model.Impl.Query.Firedac;
+
+interface
+
+uses
+  System.SysUtils,
+  System.JSON,
+  Data.DB,
+
+  FireDAC.Stan.Intf,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Param,
+  FireDAC.Stan.Error,
+  FireDAC.DatS,
+  FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf,
+  FireDAC.Stan.Async,
+  FireDAC.DApt,
+  FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client,
+
+  Model.Conexao.Interfaces,
+  Model.Query.Interfaces,
+  Model.Impl.Conexao.Firedac.MySQL;
+
+
+type
+  TQuery = class(TInterfacedObject, iQuery)
+    private
+      FParent  : iConexao;
+      FQuery   : TFDQuery;
+    public
+      constructor Create(Parent : iConexao);
+      destructor Destroy; override;
+      class function New(Parent : iConexao)         : iQuery;
+
+      function DataSet                              : TDataSet;
+      function Params(Param: String; Value: Variant): iQuery;  overload;
+      function Params(Param: String)                : Variant; overload;
+      function Open                                 : iQuery;
+      function ExecSQL                              : iQuery;
+      function ApplyUpdates                         : iQuery;
+      function SQL(Value : String)                  : iQuery;
+
+      function PrepareStatement(Value : String) : iQuery;
+      function SetValue(Index : Integer; Value : Variant) : iQuery;
+      function StartTransation : iQuery;
+      function Commit          : iQuery;
+      function Rollback        : iQuery;
+  end;
+
+implementation
+
+uses
+  Vcl.Dialogs;
+
+{ TClassePadrao }
+constructor TQuery.Create(Parent : iConexao);
+begin
+  FParent := Parent;
+  FQuery  := TFDQuery.Create(nil);
+
+  if not Assigned(FParent) then
+    FParent := TConexaoFiredacMySQL.New;
+
+  FQuery.Connection := TFDConnection(FParent.Connection);
+  FQuery.AutoCalcFields := True;
+  FQuery.CachedUpdates := True;
+end;
+
+destructor TQuery.Destroy;
+begin
+  FQuery.DisposeOf;
+  inherited;
+end;
+
+function TQuery.ExecSQL: iQuery;
+begin
+  FQuery.ExecSQL;
+end;
+
+class function TQuery.New(Parent : iConexao) : iQuery;
+begin
+  Result := Self.Create(Parent);
+end;
+
+function TQuery.DataSet: TDataSet;
+begin
+ Result := FQuery;
+end;
+
+function TQuery.Params(Param: String; Value: Variant): iQuery;
+begin
+  Result := Self;
+  FQuery.ParamByName(Param).Value := Value;
+end;
+
+function TQuery.Params(Param: String): Variant;
+begin
+  Result := FQuery.ParamByName(Param).Value;
+end;
+
+function TQuery.PrepareStatement(Value: String): iQuery;
+begin
+  Result := Self;
+  FQuery.Close;
+  FQuery.SQL.Clear;
+  FQuery.SQL.Add(Value);
+end;
+
+
+function TQuery.SQL(Value: String): iQuery;
+begin
+  Result := Self;
+  FQuery.Close;
+  FQuery.SQL.Clear;
+  FQuery.SQL.Add(Value);
+end;
+
+function TQuery.Open: iQuery;
+begin
+  Result := Self;
+  FQuery.Open;
+end;
+
+function TQuery.ApplyUpdates: iQuery;
+begin
+  FQuery.ApplyUpdates(-1);
+end;
+
+function TQuery.SetValue(Index: Integer; Value: Variant): iQuery;
+begin
+  Result := Self;
+  FQuery.Params.Add;
+  FQuery.Params[Index].Value := Value;
+end;
+
+function TQuery.StartTransation: iQuery;
+begin
+  Result := Self;
+  //FConexao.Conexao.StartTransaction;
+end;
+
+function TQuery.Commit: iQuery;
+begin
+  Result := Self;
+  //FConexao.Conexao.Commit;
+end;
+
+function TQuery.Rollback: iQuery;
+begin
+  Result := Self;
+  //FConexao.Conexao.Rollback;
+end;
+
+end.

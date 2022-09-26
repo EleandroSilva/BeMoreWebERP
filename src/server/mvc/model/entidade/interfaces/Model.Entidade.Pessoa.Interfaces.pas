@@ -19,6 +19,7 @@ type
     function PrimeiroNome                : String;  overload;
     function SegundoNome(Value: String)  : iEntidadePessoa; overload;
     function SegundoNome                 : String;  overload;
+
     function &End                        : iDAOEntidade<iEntidadePessoa>;
   end;
 

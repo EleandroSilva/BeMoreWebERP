@@ -1,0 +1,7 @@
+unit Controller.View.Entidade.Factory.Interfaces;
+
+interface
+
+implementation
+
+end.

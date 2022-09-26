@@ -1,0 +1,7 @@
+object Pessoa: TPessoa
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  Height = 311
+  Width = 398
+end

@@ -1,0 +1,17 @@
+unit Model.Conexao.Interfaces;
+
+interface
+
+uses
+  Data.DB, FireDAC.Comp.Client;
+
+type
+  iConexao = interface
+    ['{337FB483-3025-4F89-94CA-227C9F508845}']
+    function Connection : TCustomConnection;
+    function Conexao    : TFDConnection;
+  end;
+
+implementation
+
+end.

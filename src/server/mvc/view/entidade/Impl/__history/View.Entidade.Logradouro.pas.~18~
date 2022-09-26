@@ -1,0 +1,84 @@
+unit View.Entidade.Logradouro;
+
+interface
+
+uses
+  System.SysUtils,
+  System.Classes,
+  System.JSON,
+
+  Controller.Factory.Entidade.DAO.Interfaces,
+  Controller.Impl.Factory.Entidade.DAO;
+
+
+{$METHODINFO ON}
+
+type
+  TLogradouro = class(TDataModule)
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+    FController : iControllerFactoryEntidadeDAO;
+    FResultadoGet : Boolean;
+  public
+    { Public declarations }
+    function  Logradouro(const Key : String)               : TJsonArray;
+    procedure acceptLogradouro(const Key : String; jObject : TJsonObject);
+    procedure updateLogradouro(const Key : String; jObject : TJsonObject);
+    procedure cancelLogradouro(const Key : String);
+
+    function ResultadoGet(Value : Boolean) : TLogradouro; overload;
+    function ResultadoGet                  : Boolean; overload;
+  end;
+{$METHODINFO OFF}
+
+var
+  Logradouro : TLogradouro;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+procedure TLogradouro.DataModuleCreate(Sender: TObject);
+begin
+   FController := TControllerFactoryEntidadeDAO.New;
+end;
+
+function TLogradouro.Logradouro(const Key: String): TJsonArray;
+begin
+  Result := FController
+                  .DAOFactoryEntidade
+                   .Entidade
+                    .Logradouro
+                     .Get(Key);
+  ResultadoGet(True);
+end;
+
+procedure TLogradouro.acceptLogradouro(const Key: String; jObject: TJsonObject);
+begin
+
+end;
+
+procedure TLogradouro.cancelLogradouro(const Key: String);
+begin
+
+end;
+
+procedure TLogradouro.updateLogradouro(const Key: String; jObject: TJsonObject);
+begin
+
+end;
+
+function TLogradouro.ResultadoGet(Value: Boolean): TLogradouro;
+begin
+  Result := Self;
+  FResultadoGet := Value;
+end;
+
+function TLogradouro.ResultadoGet: Boolean;
+begin
+  Result := FResultadoGet;
+end;
+
+end.

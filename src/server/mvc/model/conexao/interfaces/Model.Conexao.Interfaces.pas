@@ -3,7 +3,8 @@ unit Model.Conexao.Interfaces;
 interface
 
 uses
-  Data.DB, FireDAC.Comp.Client;
+  Data.DB,
+  FireDAC.Comp.Client;
 
 type
   iConexao = interface

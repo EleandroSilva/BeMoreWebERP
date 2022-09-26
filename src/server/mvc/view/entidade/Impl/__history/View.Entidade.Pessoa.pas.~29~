@@ -1,0 +1,112 @@
+unit View.Entidade.Pessoa;
+
+interface
+
+uses
+  System.SysUtils,
+  System.Classes,
+  System.JSON,
+
+  Controller.Factory.Entidade.DAO.Interfaces,
+  Controller.Impl.Factory.Entidade.DAO,
+  Uteis.Uteis;
+
+
+{$METHODINFO ON}
+
+type
+  TPessoa = class(TDataModule)
+    procedure DataModuleCreate(Sender: TObject);
+    procedure DataModuleDestroy(Sender: TObject);
+  private
+    { Private declarations }
+    FController : iControllerFactoryEntidadeDAO;
+    FUteis : TUteis;
+    FResultadoGet : Boolean;
+  public
+    { Public declarations }
+    function  Pessoa(const Key : String)               : TJsonArray;
+    procedure acceptPessoa(const Key : String; jObject : TJsonObject);
+    procedure updatePessoa(const Key : String; jObject : TJsonObject);
+    procedure cancelPessoa(const Key : String);
+    function ResultadoGet(Value : Boolean) : TPessoa; overload;
+    function ResultadoGet : Boolean; overload;
+  end;
+
+{$METHODINFO OFF}
+
+var
+  Pessoa: TPessoa;
+
+
+implementation
+
+uses
+  Vcl.Dialogs;
+
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+procedure TPessoa.DataModuleCreate(Sender: TObject);
+begin
+  FController := TControllerFactoryEntidadeDAO.New;
+  FUteis := TUteis.Create;
+end;
+
+procedure TPessoa.DataModuleDestroy(Sender: TObject);
+begin
+  FUteis.DisposeOf;
+end;
+
+function TPessoa.Pessoa(const Key: String): TJsonArray;
+begin
+  Result := FController
+                  .DAOFactoryEntidade
+                   .Entidade
+                    .Pessoa
+                    .ResultadoGet(True)
+                  .Get(Key);
+  FResultadoGet := True;
+end;
+
+procedure TPessoa.acceptPessoa(const Key: String; jObject: TJsonObject);
+begin
+  FController
+          .DAOFactoryEntidade
+           .Entidade
+            .Pessoa
+          .Put(Key, jObject);
+end;
+
+procedure TPessoa.updatePessoa(const Key: String; jObject: TJsonObject);
+begin
+   FController
+          .DAOFactoryEntidade
+           .Entidade
+            .Pessoa
+          .Post(Key, jObject);
+end;
+
+procedure TPessoa.cancelPessoa(const Key: String);
+begin
+  FController
+          .DAOFactoryEntidade
+           .Entidade
+            .Pessoa
+          .Delete(Key);
+end;
+
+function TPessoa.ResultadoGet(Value: Boolean): TPessoa;
+begin
+  Result := Self;
+  FResultadoGet := Value;
+end;
+
+function TPessoa.ResultadoGet: Boolean;
+begin
+    Result := FResultadoGet;
+end;
+
+end.

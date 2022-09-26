@@ -1,0 +1,104 @@
+unit Model.Impl.DAO.Entidade.Logradouro;
+
+interface
+
+uses
+  System.JSON,
+
+  DataSetConverter4D.Helper,
+  DataSetConverter4D.Impl,
+
+  Model.DAO.Entidade.Interfaces,
+  Model.Entidade.Logradouro.Interfaces,
+  Model.Query.Interfaces,
+  Controller.Factory.Query.Interfaces,
+  Model.Impl.Entidade.Logradouro,
+  Model.Impl.Query.Firedac,
+  Controller.Impl.Factory.Query;
+
+type
+  TDAOEntidadeLogradouro = class(TInterfacedObject, iDAOEntidade<iEntidadeLogradouro>)
+    private
+      FLogradouro             : iEntidadeLogradouro;
+      FControllerFactoryQuery : iControllerFactoryQuery;
+      FQuery                  : iQuery;
+      FResultadoGet : Boolean;
+      const FSQL=('SELECT * FROM LOGRADOURO');
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iDAOEntidade<iEntidadeLogradouro>;
+
+      function Get   (const Key : String= '')                    : TJsonArray;
+      function Put   (const Key : String; jObject : TJsonObject) :iDAOEntidade<iEntidadeLogradouro>;
+      function Post  (const Key : String; jObject : TJsonObject) :iDAOEntidade<iEntidadeLogradouro>;
+      function Delete(const Key : String)                        :iDAOEntidade<iEntidadeLogradouro>;
+
+      function This : iEntidadeLogradouro;
+  end;
+
+implementation
+
+{ TClassePadrao }
+
+constructor TDAOEntidadeLogradouro.Create;
+begin
+  FLogradouro             := TEntidadeLogradouro.New(Self);
+  FControllerFactoryQuery := TControllerFactoryQuery.New;
+  FQuery                  := FControllerFactoryQuery.FactoryQuery.Query(nil);
+end;
+
+destructor TDAOEntidadeLogradouro.Destroy;
+begin
+  inherited;
+end;
+
+class function TDAOEntidadeLogradouro.New: iDAOEntidade<iEntidadeLogradouro>;
+begin
+  Result := Self.Create;
+end;
+
+function TDAOEntidadeLogradouro.Get(const Key: String = ''): TJsonArray;
+begin
+  if Key = '' then
+    FQuery.SQL(FSQL) else
+    FQuery.SQL(FSQL+ 'WHERE ID='+Key);
+
+  FQuery.Open;
+  Result := FQuery.DataSet.AsJSONArray;
+end;
+
+function TDAOEntidadeLogradouro.Put(const Key: String; jObject: TJsonObject): iDAOEntidade<iEntidadeLogradouro>;
+begin
+  Result := Self;
+  Result := Self;
+  FQuery.SQL(FSQL+' WHERE 1 = 2 ');
+  FQuery.Open;
+  FQuery.DataSet.FromJSONObject(jObject);
+  FQuery.ApplyUpdates;
+end;
+
+function TDAOEntidadeLogradouro.Post(const Key: String; jObject: TJsonObject): iDAOEntidade<iEntidadeLogradouro>;
+begin
+  Result := Self;
+  FQuery.SQL(FSQL+' WHERE ID= :ID');
+  FQuery.Params('ID', Key);
+  FQuery.Open;
+  FQuery.DataSet.RecordFromJSONObject(jObject);
+  FQuery.ApplyUpdates;
+end;
+
+function TDAOEntidadeLogradouro.Delete(const Key: String): iDAOEntidade<iEntidadeLogradouro>;
+begin
+  Result := Self;
+  FQuery.SQL('DELETE FROM LOGRADOURO WHERE ID= :ID');
+  FQuery.Params('ID', Key);
+  FQuery.ExecSQL;
+end;
+
+function TDAOEntidadeLogradouro.This: iEntidadeLogradouro;
+begin
+  Result := FLogradouro;
+end;
+
+end.

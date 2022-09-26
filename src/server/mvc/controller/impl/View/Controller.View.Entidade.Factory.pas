@@ -1,0 +1,49 @@
+unit Controller.View.Entidade.Factory;
+
+interface
+
+uses
+  Controller.View.Entidade.Factory.Interfaces,
+  View.Entidade.Fatory.Interfaces,
+  View.Entidade.Factory;
+
+type
+  TControllerViewEntidadeFactory= class(TInterfacedObject, iControllerViewEntidadeFactory)
+    private
+      FViewEntidadeFactory : iViewEntidadeFactory;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iControllerViewEntidadeFactory;
+
+      function ViewEntidadeFactory : iViewEntidadeFactory;
+  end;
+
+implementation
+
+{ TControllerViewEntidadeFactory }
+
+constructor TControllerViewEntidadeFactory.Create;
+begin
+  //
+end;
+
+destructor TControllerViewEntidadeFactory.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerViewEntidadeFactory.New: iControllerViewEntidadeFactory;
+begin
+  Result := Self.Create;
+end;
+
+function TControllerViewEntidadeFactory.ViewEntidadeFactory: iViewEntidadeFactory;
+begin
+  if not Assigned(FViewEntidadeFactory) then
+    FViewEntidadeFactory := TViewEntidadeFactory.New;
+
+  Result := FViewEntidadeFactory;
+end;
+
+end.

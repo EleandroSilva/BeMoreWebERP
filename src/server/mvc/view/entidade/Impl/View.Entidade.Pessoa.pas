@@ -3,54 +3,89 @@ unit View.Entidade.Pessoa;
 interface
 
 uses
+  System.SysUtils,
+  System.Classes,
   System.JSON,
 
-  View.Entidade.Pessoa.Interfaces,
-  Controller.Factory.Entidade.DAO.Interfaces;
+  Controller.Factory.Entidade.DAO.Interfaces,
+  Controller.Impl.Factory.Entidade.DAO;
+
 
 {$METHODINFO ON}
 
 type
-  TPessoa = class(TInterfacedObject, iViewEntidade)
-    private
-      FController : iControllerFactoryEntidadeDAO;
-    public
-      constructor Create;
-      destructor Destroy; override;
-      class function New : iViewEntidade;
-
-      function Entidade(const Key : String) : TJsonArray;
+  TPessoa = class(TDataModule)
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+    FController : iControllerFactoryEntidadeDAO;
+  public
+    { Public declarations }
+    function  Pessoa(const Key : String)               : TJsonArray;
+    procedure acceptPessoa(const Key : String; jObject : TJsonObject);
+    procedure updatePessoa(const Key : String; jObject : TJsonObject);
+    procedure cancelPessoa(const Key : String);
   end;
 
 {$METHODINFO OFF}
 
+var
+  Pessoa: TPessoa;
+  FResultadoGet : Boolean;
+
 implementation
 
-{ TClassePadrao }
+uses
+  Vcl.Dialogs;
 
-constructor TPessoa.Create;
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+procedure TPessoa.DataModuleCreate(Sender: TObject);
 begin
-  //
+  FController := TControllerFactoryEntidadeDAO.New;
 end;
 
-destructor TPessoa.Destroy;
-begin
-  //
-  inherited;
-end;
-
-class function TPessoa.New: iViewEntidade;
-begin
-  Result := Self.Create;
-end;
-
-function TPessoa.Entidade(const Key: String): TJsonArray;
+function TPessoa.Pessoa(const Key: String): TJsonArray;
 begin
   Result := FController
                   .DAOFactoryEntidade
                    .Entidade
                     .Pessoa
-                     .Get(Key);
+                  .Get(Key);
+  FResultadoGet := True;
 end;
+
+procedure TPessoa.acceptPessoa(const Key: String; jObject: TJsonObject);
+begin
+  FController
+          .DAOFactoryEntidade
+           .Entidade
+            .Pessoa
+          .Put(Key, jObject);
+  FResultadoGet := False;
+end;
+
+procedure TPessoa.updatePessoa(const Key: String; jObject: TJsonObject);
+begin
+   FController
+          .DAOFactoryEntidade
+           .Entidade
+            .Pessoa
+          .Post(Key, jObject);
+  FResultadoGet := False;
+end;
+
+procedure TPessoa.cancelPessoa(const Key: String);
+begin
+  FController
+          .DAOFactoryEntidade
+           .Entidade
+            .Pessoa
+          .Delete(Key);
+end;
+
 
 end.

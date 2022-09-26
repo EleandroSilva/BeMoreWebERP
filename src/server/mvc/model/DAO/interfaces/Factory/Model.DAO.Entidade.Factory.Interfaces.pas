@@ -4,7 +4,8 @@ interface
 
 uses
   Model.DAO.Entidade.Interfaces,
-  Model.Entidade.Pessoa.Interfaces;
+  Model.Entidade.Pessoa.Interfaces,
+  Model.Entidade.Logradouro.Interfaces;
 
 type
   iFactoryEntidade = interface;
@@ -16,7 +17,8 @@ type
 
   iFactoryEntidade = interface
     ['{8A87DBD7-7B59-43E9-BF86-2439757E43DA}']
-    function Pessoa : iDAOEntidade<iEntidadePessoa>;
+    function Pessoa     : iDAOEntidade<iEntidadePessoa>;
+    function Logradouro : iDAOEntidade<iEntidadeLogradouro>;
   end;
 
 implementation

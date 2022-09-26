@@ -1,0 +1,7 @@
+unit Model.Impl.Entidade.Logradouro;
+
+interface
+
+implementation
+
+end.

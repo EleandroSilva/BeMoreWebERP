@@ -2,8 +2,8 @@ object frmServerERP: TfrmServerERP
   Left = 271
   Top = 114
   Caption = 'Server ERP'
-  ClientHeight = 476
-  ClientWidth = 641
+  ClientHeight = 440
+  ClientWidth = 466
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -64,12 +64,11 @@ object frmServerERP: TfrmServerERP
     Height = 25
     Caption = 'Button1'
     TabOrder = 4
-    OnClick = Button1Click
   end
   object DBGrid1: TDBGrid
     Left = 0
-    Top = 210
-    Width = 641
+    Top = 174
+    Width = 466
     Height = 241
     Align = alBottom
     DataSource = DataSource1
@@ -82,8 +81,8 @@ object frmServerERP: TfrmServerERP
   end
   object DBNavigator1: TDBNavigator
     Left = 0
-    Top = 451
-    Width = 641
+    Top = 415
+    Width = 466
     Height = 25
     DataSource = DataSource1
     Align = alBottom
